@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mybatis实现该dao里的方法,id是方法名-->
+<mapper namespace="com.imooc.demo.dao.AreaDao">
+    <select id="queryArea" resultType="com.imooc.demo.entity.Area">
+        SELECT area_id, area_name, priority, create_time, last_edit_time
+        FROM tb_area
+        ORDER BY priority
+        DESC
+    </select>
+
+    <select id="queryAreaById" resultType="com.imooc.demo.entity.Area">
+        SELECT area_id, area_name, priority, create_time, last_edit_time
+        FROM tb_area
+        WHERE
+        area_id=#{areaId}
+    </select>
+
+    <!--useGeneratedKeys: insert成功，返回主键的值。parameterType传入参数类型。VALUES是Area.java中的变量-->
+    <insert id="insertArea" useGeneratedKeys="true" keyProperty="areaId"
+            keyColumn="area_id" parameterType="com.imooc.demo.entity.Area">
+        INSERT INTO
+        tb_area(area_name, priority, create_time, last_edit_time)
+        VALUES
+        (#{areaName},#{priorty},#{createTime},#{lastEditTime})
+    </insert>
+    
+    <update id="updateArea" parameterType="com.imooc.demo.entity.Area">
+        UPDATE tb_area
+        <set>
+            <if test="areaName!=null">area_name = #{areaName},</if>
+            <if test="priority!=null">priority = #{priorty},</if>
+            <if test="last_edit_time!=null">last_edit_time = #{lastEditTime}</if>
+        </set>
+        WHERE area_id = #{areaId}
+    </update>
+    
+    <delete id="deleteArea">
+        DELETE FROM
+        tb_area
+        WHERE
+        area_id = #{areaId}
+    </delete>
+</mapper>
