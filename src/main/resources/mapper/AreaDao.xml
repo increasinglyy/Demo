@@ -24,15 +24,15 @@
         INSERT INTO
         tb_area(area_name, priority, create_time, last_edit_time)
         VALUES
-        (#{areaName},#{priorty},#{createTime},#{lastEditTime})
+        (#{areaName},#{priority},#{createTime},#{lastEditTime})
     </insert>
     
     <update id="updateArea" parameterType="com.imooc.demo.entity.Area">
         UPDATE tb_area
         <set>
             <if test="areaName!=null">area_name = #{areaName},</if>
-            <if test="priority!=null">priority = #{priorty},</if>
-            <if test="last_edit_time!=null">last_edit_time = #{lastEditTime}</if>
+            <if test="priority!=null">priority = #{priority},</if>
+            <if test="lastEditTime!=null">last_edit_time = #{lastEditTime}</if>
         </set>
         WHERE area_id = #{areaId}
     </update>
